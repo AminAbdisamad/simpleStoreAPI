@@ -10,6 +10,8 @@ autopep8 = "*"
 [packages]
 flask = "*"
 requests = "*"
+flask-restful = "*"
+flask-jwt = "*"
 
 [requires]
 python_version = "3.7"
