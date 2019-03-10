@@ -1,22 +1,6 @@
-from user import User
-SECRET_KEY = 'Un3v3rkn0w@asd'
+# Database Configuration
 
-users = {
-    User(1, 'alex', 'thepass')
-}
-
-userNameMapping = {x.username: x for x in users}
-userIdMapping = {x.id: x for x in users}
-
-
-# Authenticate User
-def authenticate(username, password):
-    user = userNameMapping.get(username, None)
-    if user and user.password == password:
-        return user
-
-
-# identity
-def identity(payload):
-    userId = payload['identity']
-    return userIdMapping.get(userId, None)
+DBNAME = 'storedb'
+USERNAME = 'aminux'
+PASSWORD = "aminux123"
+HOST = "localhost"

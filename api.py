@@ -1,13 +1,19 @@
 from flask import Flask, request
-from flask_restful import Resource, Api, regparse
+from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required
-from config import SECRET_KEY, authenticate, identity
+from security import SECRET_KEY, authenticate, identity
+from user import RegisterUser
+import config
 
+# Init App
 app = Flask(__name__)
+
+# Security Key
 app.secret_key = SECRET_KEY
 api = Api(app)
 # JWT
 jwt = JWT(app, authenticate, identity)
+
 
 items = []
 
@@ -35,7 +41,12 @@ class Item(Resource):
         return {"message": "deleted seccessfully"}
 
     def put(self, name):
-        data = request.get_json()
+        parser = reqparse.RequestParser()
+        parser.add_argument('price',
+                            type=float,
+                            required=True,
+                            help="this field can't be blank")
+        data = parser.parse_args
         item = next(filter(lambda x: x['name'] == name, items), None)
         if item is None:
             item: {
@@ -55,4 +66,7 @@ class ItemList(Resource):
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
-app.run(port=5000, debug=True)
+api.add_resource(RegisterUser, '/register')
+
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)

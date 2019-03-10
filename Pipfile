@@ -12,6 +12,7 @@ flask = "*"
 requests = "*"
 flask-restful = "*"
 flask-jwt = "*"
+flask-mysql = "*"
 
 [requires]
 python_version = "3.7"
